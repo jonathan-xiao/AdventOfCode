@@ -6,6 +6,6 @@ public class DayOne {
     }
 
     public static int dayOne(int k) {
-        return k;
+        return k+k;
     }
 }
