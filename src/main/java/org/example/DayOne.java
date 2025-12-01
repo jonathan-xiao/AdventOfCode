@@ -13,18 +13,32 @@ import java.util.Collections;
 
 public class DayOne {
     void main() {
-        InputStream in = getClass().getClassLoader().getResourceAsStream("Practice.txt");
+        InputStream in = getClass().getClassLoader().getResourceAsStream("DayOne.txt");
         List<String> lines = new BufferedReader(new InputStreamReader(in))
                 .lines().toList();
 
-        List<Integer> leftList = new ArrayList<>();
-        List<Integer> rightList = new ArrayList<>();
+        int point = 50;
+        int count = 0;
 
         for (String line : lines) {
-            String[] numbers = line.trim().split("\\s+"); // Split by one or more whitespace characters
-            leftList.add(Integer.parseInt(numbers[0]));
-            rightList.add(Integer.parseInt(numbers[1]));
+            char letter = line.charAt(0);
+            int number = Integer.parseInt(line.substring(1));
+
+            if (letter == 'R') {
+                int passesDuring = (point + number - 1) / 100;
+                point = (point + number) % 100;
+                count += passesDuring;
+                if (point == 0) count++;
+            } else {
+                int st = (100 - point) % 100;
+                int passesDuring = (st + number - 1) / 100;
+                point = ((point - number) % 100 + 100) % 100;
+                count += passesDuring;
+                if (point == 0) count++;
+            }
         }
+
+        System.out.println(count);
     }
 
 }
